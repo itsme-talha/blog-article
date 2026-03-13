@@ -1,0 +1,46 @@
+<div class="max-w-md mx-auto mt-10 mb-24 px-6">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-white tracking-tight mb-2">Welcome Back</h1>
+        <p class="text-light-grey">Log in to interact with the community.</p>
+    </div>
+
+    <div class="bg-dark-slate/30 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+        
+        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+            <div class="bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-4 rounded-lg mb-6">
+                <ul class="list-disc list-inside">
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+
+        <form action="/auth/login" method="POST" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-light-grey mb-2">Email Address</label>
+                <input type="email" name="email" required 
+                    class="w-full bg-dark-deep border border-white/10 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="hello@example.com">
+            </div>
+
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <label class="block text-sm font-medium text-light-grey">Password</label>
+                    <a href="#" class="text-xs text-primary hover:underline">Forgot?</a>
+                </div>
+                <input type="password" name="password" required 
+                    class="w-full bg-dark-deep border border-white/10 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="w-full bg-primary text-dark-deep font-bold py-3.5 rounded-lg hover:bg-white transition-colors shadow-lg shadow-primary/20">
+                Log In
+            </button>
+        </form>
+
+        <p class="text-center text-sm text-light-grey mt-8">
+            Don't have an account? <a href="/auth/register" class="text-primary font-semibold hover:underline">Sign up</a>
+        </p>
+    </div>
+</div>

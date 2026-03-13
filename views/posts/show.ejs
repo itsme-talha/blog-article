@@ -1,0 +1,60 @@
+<div class="max-w-3xl mx-auto mb-16">
+    
+    <% if (locals.session && locals.session.userId && locals.session.userId === post.author._id.toString()) { %>
+        <div class="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-6 flex justify-between items-center backdrop-blur-sm">
+            <span class="text-sm text-primary font-bold flex items-center gap-2">
+                <span class="material-icons text-[18px]">admin_panel_settings</span> Author Controls
+            </span>
+            <div class="flex gap-2">
+                <a href="/posts/<%= post._id %>/edit" class="bg-background-dark text-slate-300 hover:text-primary px-4 py-1.5 rounded text-sm font-medium border border-primary/20 transition-colors">Edit</a>
+                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this article forever?');" class="inline">
+                    <button type="submit" class="bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-4 py-1.5 rounded text-sm font-medium border border-red-500/20 transition-colors">Delete</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
+
+    <header class="mb-8 text-center">
+        <% if (post.tags && post.tags.length > 0) { %>
+            <div class="flex justify-center gap-2 mb-4">
+                <% post.tags.forEach(tag => { %>
+                    <span class="bg-primary/10 text-primary border border-primary/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        <%= tag %>
+                    </span>
+                <% }) %>
+            </div>
+        <% } %>
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-100 leading-tight mb-6"><%= post.title %></h1>
+        
+        <div class="flex items-center justify-center gap-4 text-slate-400 text-sm">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-background-dark font-bold border border-primary/30">
+                    <%= post.author.name.charAt(0).toUpperCase() %>
+                </div>
+                <span class="font-medium text-slate-300"><%= post.author.name %></span>
+            </div>
+            <span>•</span>
+            <span class="flex items-center gap-1">
+                <span class="material-icons text-[16px]">calendar_today</span> 
+                <%= post.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+            </span>
+        </div>
+    </header>
+
+    <% if (post.image) { %>
+        <div class="w-full h-80 md:h-[400px] rounded-2xl overflow-hidden mb-10 border border-primary/10 shadow-2xl">
+           <img src="<%= post.image.startsWith('http') ? post.image : '/uploads/' + post.image %>" alt="<%= post.title %>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        </div>
+    <% } %>
+
+    <article class="prose prose-invert prose-lg max-w-none prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-xl">
+        <%- post.content %>
+    </article>
+
+    <div class="mt-12 pt-8 border-t border-primary/10 text-center">
+        <a href="/posts" class="text-primary hover:underline font-bold inline-flex items-center gap-2">
+            <span class="material-icons text-sm">arrow_back</span> Read more articles
+        </a>
+    </div>
+</div>

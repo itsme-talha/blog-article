@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title><%= typeof title !== 'undefined' ? title : 'Admin Console | Lumina' %></title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8ED116",
+                        "dark-deep": "#010102",
+                        "dark-slate": "#252E34",
+                        "light-grey": "#C5D3D8"
+                    },
+                    fontFamily: { "display": ["Space Grotesk"] }
+                }
+            }
+        }
+    </script>
+    <style>body { font-family: 'Space Grotesk', sans-serif; }</style>
+</head>
+<body class="bg-dark-deep text-white flex h-screen overflow-hidden font-display antialiased selection:bg-primary selection:text-dark-deep">
+
+    <aside class="w-64 bg-dark-deep border-r border-white/5 flex-col hidden md:flex relative z-20">
+        <div class="h-20 flex items-center px-8 border-b border-white/5">
+            <a href="/" class="text-xl font-black tracking-tighter flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-gradient-to-br from-primary to-[#6ca30e] rounded-lg flex items-center justify-center text-dark-deep shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
+                    <span class="material-icons text-sm">terminal</span>
+                </div>
+                Console<span class="text-primary">.</span>
+            </a>
+        </div>
+
+        <nav class="flex-1 px-4 py-8 space-y-2 overflow-y-auto">
+            <p class="px-4 text-xs font-bold text-light-grey/40 uppercase tracking-wider mb-4">Menu</p>
+            
+            <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl font-medium border border-primary/20 transition-all">
+                <span class="material-icons text-xl">dashboard</span> Dashboard
+            </a>
+            <a href="/posts/create/new" class="flex items-center gap-3 px-4 py-3 text-light-grey hover:bg-white/5 hover:text-white rounded-xl font-medium transition-all">
+                <span class="material-icons text-xl">edit_note</span> Write Post
+            </a>
+            <a href="/" target="_blank" class="flex items-center gap-3 px-4 py-3 text-light-grey hover:bg-white/5 hover:text-white rounded-xl font-medium transition-all">
+                <span class="material-icons text-xl">public</span> View Live Site
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/5 bg-dark-slate/20">
+            <div class="flex items-center justify-between px-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-dark-deep font-bold text-lg shadow-lg">M</div>
+                    <div>
+                        <p class="text-sm font-bold text-white">MUHAMMAD TALHA</p>
+                        <p class="text-xs text-primary">Master Admin</p>
+                    </div>
+                </div>
+                <a href="/auth/logout" class="text-light-grey hover:text-red-400 transition-colors" title="Logout">
+                    <span class="material-icons">logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden relative">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <header class="h-20 border-b border-white/5 bg-dark-deep/80 backdrop-blur-md flex items-center justify-between px-8 z-10">
+            <div class="flex items-center gap-4">
+                <span class="material-icons text-light-grey/50">search</span>
+                <input type="text" placeholder="Search data..." class="bg-transparent border-none text-sm text-white focus:outline-none focus:ring-0 placeholder-light-grey/30 w-64">
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-light-grey hover:text-primary hover:border-primary/50 transition-colors relative">
+                    <span class="material-icons text-sm">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8 z-10 scrollbar-hide">
+            <div class="max-w-6xl mx-auto">
+                <%- body %>
+            </div>
+        </main>
+    </div>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('aside nav a');
+            
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                
+                // Reset all links to default styling
+                link.className = "flex items-center gap-3 px-4 py-3 text-light-grey hover:bg-white/5 hover:text-white rounded-xl font-medium transition-all";
+                
+                // If the link path matches the current URL, highlight it!
+                if (linkPath === currentPath) {
+                    link.className = "flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl font-medium border border-primary/20 transition-all shadow-sm";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

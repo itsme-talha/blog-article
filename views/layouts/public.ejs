@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title><%= typeof title !== 'undefined' ? title : 'Blog-Article | Premium Tech Insights' %></title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8ED116",
+                        "dark-deep": "#010102",
+                        "dark-slate": "#252E34",
+                        "light-grey": "#C5D3D8",
+                        "bg-light": "#F5FAFC"
+                    },
+                    fontFamily: { "display": ["Space Grotesk"] }
+                }
+            }
+        }
+    </script>
+    <style>body { font-family: 'Space Grotesk', sans-serif; }</style>
+</head>
+<body class="bg-dark-deep text-bg-light font-display antialiased selection:bg-primary selection:text-dark-deep flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 top-0 transition-all duration-500 bg-dark-deep/80 backdrop-blur-2xl border-b border-white/10 shadow-2xl shadow-dark-deep/50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24"> 
+                
+                <div class="flex-shrink-0 group">
+                    <a href="/" class="text-2xl font-black tracking-tighter text-white flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-[#6ca30e] rounded-xl flex items-center justify-center text-dark-deep shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
+                            <span class="material-icons text-lg">article</span>
+                        </div>
+                        Blog-Article<span class="text-primary">.</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-2 bg-white/5 px-2 py-1.5 rounded-full border border-white/5">
+                    <a href="/" class="text-white bg-white/10 px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-sm">Home</a>
+                    <a href="#" class="text-light-grey hover:text-white hover:bg-white/5 px-5 py-2 rounded-full text-sm font-medium transition-all">Technology</a>
+                    <a href="#" class="text-light-grey hover:text-white hover:bg-white/5 px-5 py-2 rounded-full text-sm font-medium transition-all">Development</a>
+                    <a href="#" class="text-light-grey hover:text-white hover:bg-white/5 px-5 py-2 rounded-full text-sm font-medium transition-all">Design</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <% if (typeof session !== 'undefined' && session.userId) { %>
+                        <div class="flex items-center gap-4 bg-white/5 rounded-full px-4 py-1.5 border border-white/10">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 bg-primary rounded-full flex items-center justify-center text-dark-deep font-bold text-xs">
+                                    <%= session.name ? session.name.charAt(0).toUpperCase() : 'U' %>
+                                </div>
+                                <span class="text-white text-sm font-medium hidden md:block"><%= session.name || 'User' %></span>
+                            </div>
+                            
+                            <% if (session.role === 'admin') { %>
+                                <a href="/dashboard" class="text-primary hover:text-white transition-colors text-sm font-bold flex items-center gap-1 border-l border-white/10 pl-4 ml-2">
+                                    <span class="material-icons text-[16px]">terminal</span> Console
+                                </a>
+                            <% } %>
+                            
+                            <form action="/auth/logout" method="GET" class="inline border-l border-white/10 pl-4 ml-2">
+                                <button type="submit" class="text-light-grey hover:text-red-500 transition-colors mt-1" title="Logout">
+                                    <span class="material-icons text-[18px]">logout</span>
+                                </button>
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <div class="flex items-center gap-4">
+                            <a href="/auth/login" class="hidden md:block text-light-grey hover:text-white text-sm font-semibold transition-colors">Log in</a>
+                            <a href="/auth/register" class="flex items-center gap-2 text-sm font-bold text-dark-deep bg-primary hover:bg-white px-6 py-2.5 rounded-full transition-colors shadow-lg shadow-primary/20">
+                                Sign up
+                            </a>
+                        </div>
+                        
+                        <div class="h-8 w-px bg-white/10 mx-2 hidden md:block"></div>
+                        <a href="/auth/admin/login" class="text-light-grey hover:text-primary transition-colors w-10 h-10 rounded-full border border-white/10 hover:border-primary/50 hover:bg-primary/10 flex items-center justify-center group" title="Developer Console">
+                            <span class="material-icons text-xl group-hover:scale-110 transition-transform">terminal</span>
+                        </a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-16">
+        <%- body %>
+    </main>
+
+    <footer class="bg-[#080809] border-t border-white/10 pt-24 pb-12 mt-auto relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                
+                <div class="lg:col-span-4 pr-8">
+                    <a href="/" class="text-2xl font-black tracking-tighter text-white flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-dark-deep">
+                            <span class="material-icons text-sm">article</span>
+                        </div>
+                        Blog-Article<span class="text-primary">.</span>
+                    </a>
+                    <p class="text-light-grey/70 text-sm leading-relaxed mb-8">
+                        The ultimate destination for software engineers and designers. We deliver high-fidelity tutorials, architectural insights, and industry trends to help you build the future.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-light-grey hover:bg-primary hover:text-dark-deep hover:border-primary transition-all"><span class="material-icons text-[18px]">language</span></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-light-grey hover:bg-primary hover:text-dark-deep hover:border-primary transition-all"><span class="material-icons text-[18px]">code</span></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-light-grey hover:bg-primary hover:text-dark-deep hover:border-primary transition-all"><span class="material-icons text-[18px]">email</span></a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 lg:col-start-6">
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-xs">Explore</h4>
+                    <ul class="space-y-4 text-sm text-light-grey/80">
+                        <li><a href="#" class="hover:text-primary transition-colors">Latest Articles</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Engineering</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">UI/UX Design</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Tech Leadership</a></li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-xs">Resources</h4>
+                    <ul class="space-y-4 text-sm text-light-grey/80">
+                        <li><a href="#" class="hover:text-primary transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">API Reference</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Case Studies</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Open Source</a></li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-xs">Legal</h4>
+                    <ul class="space-y-4 text-sm text-light-grey/80">
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-light-grey/50">
+                <p>&copy; 2026 Blog-Article Technologies. All rights reserved.</p>
+                <p class="flex items-center gap-1">
+                    Designed & Engineered with <span class="material-icons text-primary text-[12px]">favorite</span> by 
+                    <a href="https://muhmmadt.com" target="_blank" class="text-primary font-bold hover:underline ml-1">MUHAMMAD TALHA</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

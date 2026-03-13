@@ -1,0 +1,53 @@
+<div class="flex-1 flex items-center justify-center min-h-[80vh]">
+    <div class="w-full max-w-md bg-sidebar-dark rounded-2xl border border-primary/10 overflow-hidden shadow-2xl">
+        
+        <div class="p-8 border-b border-primary/10 bg-gradient-to-b from-primary/5 to-transparent">
+            <h2 class="text-3xl font-bold text-slate-100 tracking-tight">Welcome Back</h2>
+            <p class="text-sm text-slate-400 mt-2">Access the developer console</p>
+        </div>
+
+        <div class="flex text-sm font-medium text-center border-b border-primary/10 bg-background-dark/50">
+            <div class="w-1/2 py-3 text-primary border-b-2 border-primary">Login</div>
+            <a href="/auth/register" class="w-1/2 py-3 text-slate-500 hover:text-slate-300 transition-colors">Register</a>
+        </div>
+
+        <div class="p-8">
+            <form action="/auth/login" method="POST" class="space-y-6">
+                
+                <div>
+                    <label class="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
+                        <span class="material-icons text-[18px] text-slate-500">email</span> Email Address
+                    </label>
+                    <input type="email" name="email" required
+                        class="w-full bg-background-dark border border-primary/20 text-slate-200 text-sm rounded-lg focus:ring-primary focus:border-primary block p-3 placeholder-slate-600 outline-none transition-all"
+                        placeholder="developer@lumina.io">
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="flex items-center gap-2 text-sm font-medium text-slate-300">
+                            <span class="material-icons text-[18px] text-slate-500">lock</span> Password
+                        </label>
+                        <a href="#" class="text-xs text-primary hover:underline">Forgot?</a>
+                    </div>
+                    <input type="password" name="password" required
+                        class="w-full bg-background-dark border border-primary/20 text-slate-200 text-sm rounded-lg focus:ring-primary focus:border-primary block p-3 placeholder-slate-600 outline-none transition-all"
+                        placeholder="••••••••">
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="remember" class="w-4 h-4 text-primary bg-background-dark border-primary/20 rounded focus:ring-primary focus:ring-2">
+                    <label for="remember" class="text-sm text-slate-400">Keep me logged in for 30 days</label>
+                </div>
+
+                <button type="submit" class="w-full text-background-dark bg-primary hover:bg-primary/90 focus:ring-4 focus:outline-none focus:ring-primary/30 font-bold rounded-lg text-sm px-5 py-3.5 text-center flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+                    Sign In to Portal <span class="material-icons text-sm">arrow_forward</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="p-6 border-t border-primary/10 bg-background-dark/50 text-center">
+            <p class="text-sm text-slate-400">New to the platform? <a href="/auth/register" class="text-primary font-bold hover:underline">Create an account</a></p>
+        </div>
+    </div>
+</div>
